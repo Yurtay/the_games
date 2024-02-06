@@ -1,7 +1,11 @@
 import { useState } from "react";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Dice from "./componets/dice";
-import { clearStatistics, initialState } from "./componets/diceUtils";
+import { initialState } from "./componets/diceUtils";
+import NavBar from "./componets/navBar";
+import Main from "./componets/mainPage";
+import TicTacToe from "./componets/ticTacToe";
 
 function App() {
   const [statistics, setStatistics] = useState(initialState);
@@ -12,23 +16,18 @@ function App() {
       draw: localStorage.getItem("draw") || 0,
     });
   }
-
   return (
     <div className="App">
-      <div id="container_navbar">
-        <h2>There will be navbar!</h2>
-        <h2>
-          Game statistics: win: {statistics.win} lose: {statistics.lose} draw:
-          {statistics.draw}
-        </h2>
-        <button onClick={() => clearStatistics(setStatistics)}>
-          Clear statistics
-        </button>
-      </div>
-      <h3>Start a game against the computer:</h3>
-      <div>
-        <Dice onChange={changeStatistics} />
-      </div>
+      <NavBar setStat={setStatistics} value={statistics} />
+      <Routes>
+        <Route exact path="/" element={<Main />} />
+        <Route
+          exact
+          path="/dice"
+          element={<Dice changeStat={changeStatistics} />}
+        />
+        <Route exact path="/tic_tac_toe" element={<TicTacToe />} />
+      </Routes>
     </div>
   );
 }

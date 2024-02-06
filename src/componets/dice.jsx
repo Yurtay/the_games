@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { getRandomNumberInRange, winOrLose } from "./diceUtils";
+import { useNavigate } from "react-router-dom";
+import RenderDice from "./renderDice";
 
-const Dice = ({ onChange }) => {
+const Dice = ({ changeStat }) => {
+  const history = useNavigate();
+
   const [resultRollDice, setResultRollDice] = useState({
     yourFirstRoll: 0,
     yourSecondRoll: 0,
@@ -20,36 +24,45 @@ const Dice = ({ onChange }) => {
   }
   useEffect(() => {
     setShowResult(winOrLose(resultRollDice));
-    onChange();
+    changeStat();
   }, [resultRollDice]);
   return (
-    <div>
-      <button onClick={getResultRollDice}>Roll the dice</button>
-      <div>
-        <div className="container_result">
-          <h2>
-            Your dice roll:
-            {`1 dice: ${resultRollDice.yourFirstRoll}, 2 dice: ${resultRollDice.yourSecondRoll}`}
-          </h2>
-          <h2>
-            Your result:
-            {resultRollDice.yourFirstRoll + resultRollDice.yourSecondRoll}
-          </h2>
+    <>
+      <div className="container_game">
+        <button onClick={getResultRollDice}>Roll the dice</button>
+        <div>
+          <div className="container_result">
+            <h2>Your dice roll:</h2>
+            <RenderDice
+              one={resultRollDice.yourFirstRoll}
+              two={resultRollDice.yourSecondRoll}
+            />
+
+            <h2>
+              Your result:
+              {resultRollDice.yourFirstRoll + resultRollDice.yourSecondRoll}
+            </h2>
+          </div>
+          <div className="container_result">
+            <h2>Computer dice roll:</h2>
+            <RenderDice
+              one={resultRollDice.computerFirstRoll}
+              two={resultRollDice.computerSecondRoll}
+            />
+            <h2>
+              Computer result:
+              {resultRollDice.computerFirstRoll +
+                resultRollDice.computerSecondRoll}
+            </h2>
+          </div>
         </div>
-        <div className="container_result">
-          <h2>
-            Computer dice roll:
-            {`1 dice: ${resultRollDice.computerFirstRoll}, 2 dice: ${resultRollDice.computerSecondRoll}`}
-          </h2>
-          <h2>
-            Computer result:
-            {resultRollDice.computerFirstRoll +
-              resultRollDice.computerSecondRoll}
-          </h2>
-        </div>
+        <div>{showResult}</div>
       </div>
-      <div>{showResult}</div>
-    </div>
+      <hr />
+      <button className="button_back_main_page" onClick={() => history("/")}>
+        Go main page
+      </button>
+    </>
   );
 };
 

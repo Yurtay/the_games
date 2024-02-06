@@ -7,7 +7,31 @@
   border: 3px solid;
   margin: 10px;
   padding: 5px;
+  width: 40%;
 }
 #container_navbar {
   border: 2px solid;
+}
+
+.container_game {
+  display: inline-block;
+  border: 2px double brown;
+  margin: 10px;
+  padding: 10px;
+  text-align: center;
+  width: 60%;
+}
+
+#clean_button {
+  margin: 10px;
+}
+.button_back_main_page {
+  background-color: beige;
+}
+.dice_img {
+  height: 50px;
+}
+.container_dice_img {
+  display: inline-block;
+  margin: 10px;
 }
