@@ -13,15 +13,6 @@
   border: 2px solid;
 }
 
-.container_game {
-  display: inline-block;
-  border: 2px double brown;
-  margin: 10px;
-  padding: 10px;
-  text-align: center;
-  width: 60%;
-}
-
 #clean_button {
   margin: 10px;
 }
@@ -34,4 +25,56 @@
 .container_dice_img {
   display: inline-block;
   margin: 10px;
+}
+.img_choose_game {
+  height: 200px;
+  width: 200px;
+}
+
+.container_game {
+  display: inline-block;
+  border: 2px double brown;
+  margin: 10px;
+  padding: 10px;
+  text-align: center;
+  width: 60%;
+}
+.container_choose_game {
+  display: inline-block;
+  border: 2px double brown;
+  margin: 10px;
+  padding: 10px;
+  text-align: center;
+  width: 30%;
+}
+#btn_roll_dice {
+  background: white;
+  border-radius: 10%;
+  cursor: pointer;
+}
+#btn_roll_dice:hover {
+  transform: scale(1.1) perspective(1px);
+}
+#span_roll_dice {
+  margin: 0;
+}
+
+#container_game_tictactoe {
+  /* background-image: url("./img/tictactoe_back_0.jpg"); */
+  background-size: 100%;
+  width: 390px;
+  height: 390px;
+  display: inline-block;
+  margin: 20px;
+}
+.container_cell {
+  width: 33%;
+  height: 130px;
+  display: inline-block;
+}
+#container_game_tictactoe img {
+  margin: 10px;
+  width: 110px;
+  height: 110px;
+  mix-blend-mode: multiply;
 }

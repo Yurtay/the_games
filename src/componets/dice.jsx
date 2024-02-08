@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getRandomNumberInRange, winOrLose } from "./diceUtils";
 import { useNavigate } from "react-router-dom";
 import RenderDice from "./renderDice";
+import rollDice from "../img/dice.jpg";
 
 const Dice = ({ changeStat }) => {
   const history = useNavigate();
@@ -29,7 +30,14 @@ const Dice = ({ changeStat }) => {
   return (
     <>
       <div className="container_game">
-        <button onClick={getResultRollDice}>Roll the dice</button>
+        <button onClick={getResultRollDice} id="btn_roll_dice">
+          <img
+            src={rollDice}
+            style={{ width: "70px", display: "inline-block" }}
+            alt="roll_dice"
+          />
+          <h4 id="span_roll_dice">-Roll the dice-</h4>
+        </button>
         <div>
           <div className="container_result">
             <h2>Your dice roll:</h2>

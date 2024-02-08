@@ -8,7 +8,6 @@ import diceFive from "../img/dice5.png";
 import diceSix from "../img/dice6.png";
 
 const RenderDice = ({ one, two }) => {
-  console.log(one, two);
   function renderImg(numb) {
     switch (numb) {
       case 1:
