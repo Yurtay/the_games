@@ -7,12 +7,12 @@ const Main = () => {
   return (
     <>
       <Link to="dice">
-        <div className="container_choose_game">
+        <div className="container_choose_game zoomHover">
           <img className="img_choose_game" src={dice} alt="dice" />
         </div>
       </Link>
       <Link to="tic_tac_toe">
-        <div className="container_choose_game">
+        <div className="container_choose_game zoomHover">
           <img
             className="img_choose_game"
             src={tic_tac_toe}

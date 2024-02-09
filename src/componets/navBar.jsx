@@ -9,7 +9,7 @@ const NavBar = ({ value, setStat }) => {
         Game statistics: win: {value.win} lose: {value.lose} draw:
         {value.draw}
       </h2>
-      <button id="clean_button" onClick={() => clearStatistics(setStat)}>
+      <button className="btn" onClick={() => clearStatistics(setStat)}>
         Clear statistics
       </button>
     </div>

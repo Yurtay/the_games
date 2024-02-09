@@ -30,7 +30,7 @@ export function chooseCell(elem) {
   }
 }
 
-export function checkEndGame(stateCell, setEndGame) {
+export function checkEndGame(stateCell) {
   function checkCells(cellValue) {
     switch (true) {
       case stateCell[0] === cellValue &&
@@ -81,7 +81,28 @@ export function checkEndGame(stateCell, setEndGame) {
 
   const checkFromX = checkCells("X");
   const checkFromO = checkCells("O");
+  const whoWinner = checkFromX ? "X" : checkFromO ? "O" : null;
   const result = checkFromX ? checkFromX : checkFromO ? checkFromO : theEnd_0;
+  return { checkCell: result, winner: whoWinner };
+}
+
+export function situationGame(typeGame, whoIsWalking, winner) {
+  let result;
+  if (typeGame === "p_vs_p") {
+    result = winner
+      ? winner === "X"
+        ? "Player 1 WIN!!! "
+        : "Player 2 WIN!!!"
+      : whoIsWalking === "player_1"
+      ? "Player 1 move..."
+      : "Player 2 move...";
+  } else {
+    result = winner
+      ? winner === "X"
+        ? "Player 1 WIN!!!"
+        : "Computer WIN!!!"
+      : "Player 1 move...";
+  }
 
   return result;
 }

@@ -8,17 +8,19 @@
   margin: 10px;
   padding: 5px;
   width: 40%;
+  border-radius: 20px;
 }
 #container_navbar {
-  border: 2px solid;
+  /* border: 2px solid; */
+  border-radius: 20px;
+  box-shadow: -4px 0px 30px rgba(0, 0, 0, 0.58);
+  margin: 20px;
 }
 
 #clean_button {
   margin: 10px;
 }
-.button_back_main_page {
-  background-color: beige;
-}
+
 .dice_img {
   height: 50px;
 }
@@ -33,7 +35,6 @@
 
 .container_game {
   display: inline-block;
-  border: 2px double brown;
   margin: 10px;
   padding: 10px;
   text-align: center;
@@ -42,25 +43,30 @@
 .container_choose_game {
   display: inline-block;
   border: 2px double brown;
-  margin: 10px;
+  margin: 20px;
   padding: 10px;
   text-align: center;
   width: 30%;
+  border-radius: 10px;
+  box-shadow: -4px 0px 30px rgba(0, 0, 0, 0.58);
 }
 #btn_roll_dice {
   background: white;
   border-radius: 10%;
-  cursor: pointer;
 }
-#btn_roll_dice:hover {
+.zoomHover:hover {
   transform: scale(1.1) perspective(1px);
+  cursor: pointer;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.075) inset,
+    0 0 8px rgba(82, 168, 236, 0.6);
 }
 #span_roll_dice {
   margin: 0;
 }
-
+#show_dice_result {
+  margin-top: 20px;
+}
 #container_game_tictactoe {
-  /* background-image: url("./img/tictactoe_back_0.jpg"); */
   background-size: 100%;
   width: 390px;
   height: 390px;
@@ -77,4 +83,41 @@
   width: 110px;
   height: 110px;
   mix-blend-mode: multiply;
+}
+
+#btn_type_game_p_vs_c {
+  background-color: white;
+}
+#btn_type_game_active_p_vs_c {
+  background-color: rgb(185, 179, 211);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset,
+    0 0 8px rgba(82, 168, 236, 0.6);
+}
+#btn_type_game_p_vs_p {
+  background-color: white;
+}
+#btn_type_game_active_p_vs_p {
+  background-color: rgb(185, 179, 211);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset,
+    0 0 8px rgba(82, 168, 236, 0.6);
+}
+.container_description {
+  margin: 10px 20%;
+}
+.btn {
+  cursor: pointer;
+  margin: 0px 5px 10px 5px;
+  padding: 7px 7px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+}
+.btn:hover {
+  border-color: rgba(82, 168, 236, 0.8);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset,
+    0 0 8px rgba(82, 168, 236, 0.6);
+}
+.btn-one {
+  color: #664141;
+  transition: all 0.3s;
+  position: relative;
 }

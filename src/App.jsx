@@ -6,6 +6,7 @@ import { initialState } from "./componets/diceUtils";
 import NavBar from "./componets/navBar";
 import Main from "./componets/mainPage";
 import TicTacToe from "./componets/ticTacToe";
+import DescriptionApp from "./componets/descriptionApp";
 
 function App() {
   const [statistics, setStatistics] = useState(initialState);
@@ -26,8 +27,13 @@ function App() {
           path="/dice"
           element={<Dice changeStat={changeStatistics} />}
         />
-        <Route exact path="/tic_tac_toe" element={<TicTacToe />} />
+        <Route
+          exact
+          path="/tic_tac_toe"
+          element={<TicTacToe changeStat={changeStatistics} />}
+        />
       </Routes>
+      <DescriptionApp />
     </div>
   );
 }

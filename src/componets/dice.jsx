@@ -30,14 +30,6 @@ const Dice = ({ changeStat }) => {
   return (
     <>
       <div className="container_game">
-        <button onClick={getResultRollDice} id="btn_roll_dice">
-          <img
-            src={rollDice}
-            style={{ width: "70px", display: "inline-block" }}
-            alt="roll_dice"
-          />
-          <h4 id="span_roll_dice">-Roll the dice-</h4>
-        </button>
         <div>
           <div className="container_result">
             <h2>Your dice roll:</h2>
@@ -64,10 +56,22 @@ const Dice = ({ changeStat }) => {
             </h2>
           </div>
         </div>
-        <div>{showResult}</div>
+        <button
+          onClick={getResultRollDice}
+          id="btn_roll_dice"
+          className="zoomHover"
+        >
+          <img
+            src={rollDice}
+            style={{ width: "70px", display: "inline-block" }}
+            alt="roll_dice"
+          />
+          <h4 id="span_roll_dice">-Roll the dice-</h4>
+        </button>
+        <div id="show_dice_result">{showResult}</div>
       </div>
       <hr />
-      <button className="button_back_main_page" onClick={() => history("/")}>
+      <button className="btn" onClick={() => history("/")}>
         Go main page
       </button>
     </>

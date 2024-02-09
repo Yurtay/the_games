@@ -1,46 +1,93 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   checkEndGame,
   chooseCell,
   indexArray,
   initialState,
+  situationGame,
 } from "./ticTacToeUtils";
 
-const TicTacToe = () => {
+const TicTacToe = ({ changeStat }) => {
   const [stateCell, setStateCell] = useState(initialState);
   const [stateIndex, setStateIndex] = useState(indexArray);
+  const [typeGame, setTypeGame] = useState("p_vs_c");
   const [whoIsWalking, setWhoIsWalking] = useState("player_1");
-  const [typeGame, setTypeGame] = useState("p_vs_p");
-  const [endGame, setEndGame] = useState("0");
+  const [resultCheckEndGame, setResultCheckEndGame] = useState(
+    checkEndGame(stateCell)
+  );
   const history = useNavigate();
 
   function getRandomArrayElement(array) {
-    return Math.floor(Math.random() * array.length);
+    const randomIndex = Math.floor(Math.random() * array.length);
+    return array[randomIndex];
   }
 
   function handleChangeCell(i) {
-    const newStateCell = [...stateCell];
-    const newStateIndex = [...stateIndex];
-    newStateCell[i] = whoIsWalking === "player_1" ? "X" : "O";
-    newStateIndex.filter((el) => el !== i);
-    setStateIndex(newStateIndex.filter((el) => el !== i));
-    setStateCell(newStateCell);
-    setWhoIsWalking(whoIsWalking === "player_1" ? "player_2" : "player_1");
+    if (stateCell[i] === "N") {
+      const newStateCell = [...stateCell];
+      if (typeGame === "p_vs_p") {
+        newStateCell[i] = whoIsWalking === "player_1" ? "X" : "O";
+        setStateCell(newStateCell);
+        setWhoIsWalking(whoIsWalking === "player_1" ? "player_2" : "player_1");
+        const resultCheckGame = checkEndGame(newStateCell);
+        setResultCheckEndGame(resultCheckGame);
+      } else {
+        const newArrayIndex = [...stateIndex];
+        newStateCell[i] = "X";
+        const newStateIndexAfterPlayer = newArrayIndex.filter((el) => el !== i);
 
-    // console.log(newStateCell[getRandomArrayElement(newStateCell)]);
+        const computerMove = getRandomArrayElement(newStateIndexAfterPlayer);
+        newStateCell[computerMove] = "O";
+        const newStateIndex = newStateIndexAfterPlayer.filter(
+          (el) => el !== computerMove
+        );
+        const resultCheckGame = checkEndGame(newStateCell);
+        setResultCheckEndGame(resultCheckGame);
+        setStateCell(newStateCell);
+        setStateIndex(newStateIndex);
+        setWhoIsWalking("player_1");
+      }
+    }
   }
   function handleStartOver() {
     setStateCell(initialState);
     setStateIndex(indexArray);
+    setResultCheckEndGame(checkEndGame(initialState));
   }
-  console.log(endGame);
+  function handleChangeTypeGameToPvP() {
+    setResultCheckEndGame(checkEndGame(initialState));
+    setTypeGame("p_vs_p");
+    setStateCell(initialState);
+  }
+  function handleChangeTypeGameToPvC() {
+    setResultCheckEndGame(checkEndGame(initialState));
+    setTypeGame("p_vs_c");
+    setStateIndex(indexArray);
+    setStateCell(initialState);
+  }
+
+  useEffect(() => {
+    if (typeGame === "p_vs_c" && stateIndex.length < 1) {
+      localStorage.setItem("draw", Number(localStorage.getItem("draw")) + 1);
+      changeStat();
+    }
+    if (typeGame === "p_vs_c" && resultCheckEndGame.winner !== null) {
+      if (resultCheckEndGame.winner === "X") {
+        localStorage.setItem("win", Number(localStorage.getItem("win")) + 1);
+        changeStat();
+      } else {
+        localStorage.setItem("lose", Number(localStorage.getItem("lose")) + 1);
+        changeStat();
+      }
+    }
+  }, [resultCheckEndGame]);
   return (
     <>
       <div
         id="container_game_tictactoe"
         style={{
-          backgroundImage: `url(" ${checkEndGame(stateCell, setEndGame)} ")`,
+          backgroundImage: `url(" ${resultCheckEndGame.checkCell} ")`,
         }}
       >
         {stateCell.map((el, index) => {
@@ -56,16 +103,39 @@ const TicTacToe = () => {
         })}
       </div>
       <br />
-      <button onClick={handleStartOver}>Start over</button>
-      <button onClick={() => setTypeGame("p_vs_p")}>-Player vs Player-</button>
-      <button onClick={() => setTypeGame("p_vs_c")}>
+
+      <h4>
+        {situationGame(typeGame, whoIsWalking, resultCheckEndGame.winner)}
+      </h4>
+      <button
+        id={
+          typeGame === "p_vs_c"
+            ? "btn_type_game_active_p_vs_c"
+            : "btn_type_game_p_vs_c"
+        }
+        className="btn btn-one"
+        onClick={handleChangeTypeGameToPvC}
+      >
         -Player vs Computer-
       </button>
-      <h4>
-        {whoIsWalking === "player_1" ? "Player 1 move..." : "Player 2 move..."}
-      </h4>
-      <hr />
-      <button className="button_back_main_page" onClick={() => history("/")}>
+      <button
+        id={
+          typeGame === "p_vs_p"
+            ? "btn_type_game_active_p_vs_p"
+            : "btn_type_game_p_vs_p"
+        }
+        className="btn btn-one"
+        onClick={handleChangeTypeGameToPvP}
+      >
+        -Player vs Player-
+      </button>
+      <button onClick={handleStartOver} className="btn">
+        Start over
+      </button>
+      <button
+        className="btn button_back_main_page"
+        onClick={() => history("/")}
+      >
         Go main page
       </button>
     </>
